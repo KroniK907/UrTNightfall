@@ -1,0 +1,95 @@
+#include "ui/menudef.h"
+
+{
+	/* @Barbatos 07/28/2012 for 4.2
+	* Auth system - page to enter the auth key
+	*/
+
+	menuDef {
+		name "authkey"
+		visible 0
+		fullscreen 0
+		rect 250 100 340 170
+		focusColor 1 1 1 1
+		style 1
+		popup
+		onopen { setfocus no }
+		onESC { close authkey ; open main }
+
+		itemDef {
+      name background
+      rect 0 0 340 170
+      background "ui/assets/nickback.tga"
+      style WINDOW_STYLE_SHADER
+      visible 1
+      decoration
+    }
+
+		itemDef {
+			name title
+      rect 8 8 324 10
+			text "Please set your Authentication Key:"
+      textscale .3
+      textalign 1
+      textalignx 162
+      textaligny 13
+      backcolor 0 0 0 0
+      forecolor .79 .79 .79 1
+      visible 1
+      decoration
+		}
+
+		itemDef {
+      name inputbox
+      rect 15 30 310 30
+      style 1
+      type 4
+      maxchars 32
+			text ""
+			cvar "cl_auth_key"
+			textscale .4
+      textalign 1
+      textalignx 155
+      textaligny 20
+      backcolor 0 0 0 1
+      forecolor .35 .55 .69 1
+      border 1
+      bordersize 1
+      bordercolor .79 .79 .79 1
+      visible 1
+		}
+
+		itemDef {
+      name done
+      type 1
+      style WINDOW_STYLE_SHADER
+      rect 120 75 100 30
+      background "ui/assets/done-button.tga"
+      visible 1
+      text "Done"
+      textalign 1
+      textalignx 50
+      textaligny 20
+      textscale .3
+      forecolor .79 .79 .79 1
+      action { play "sound/misc/kcaction.wav" ; uiScript updateAuthKey ; close authkey ; open main }
+      mouseEnter { setbackground "ui/assets/done-button_h.tga"}
+      mouseExit { setbackground "ui/assets/done-button.tga" }
+     }
+
+		itemDef {
+			name namewindow44
+			rect 8 105 324 10
+			wrapped
+			text
+			"Registering an account is easy !\r"
+			"Just go to www.urbanterror.info, it's free.\r"
+			textscale .27
+			textalign 0
+			textalignx 10
+			textaligny 25
+			forecolor .79 .79 .79 1
+			visible 1
+			decoration
+		}
+	}
