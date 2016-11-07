@@ -28,9 +28,9 @@
 
 		onEsc
 		{
-			close control_menu ;
-			close setup_menu ;
-			open main
+			close control_menu
+			close setup_menu
+			setcvar topmenu show
 		}
 
 		itemdef {

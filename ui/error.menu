@@ -13,7 +13,7 @@
 		popup
 		onClose { uiScript clearError }
 		onOpen { }
-		onESC { close error_popmenu ; open main }
+		onESC { close error_popmenu ; setcvar topmenu show }
 
 
 
@@ -85,9 +85,11 @@
 			rect 220 295 80 26
 			background "ui/assets/done-button.tga"
 			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close error_popmenu ;
-			open main }
+			action {
+				play "sound/misc/kcaction.wav"
+				close error_popmenu
+				setcvar topmenu show
+			}
 			mouseEnter { setbackground "ui/assets/done-button_h.tga"}
 			mouseExit { setbackground "ui/assets/done-button.tga" }
 		}

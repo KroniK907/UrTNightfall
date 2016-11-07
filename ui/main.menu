@@ -1,418 +1,571 @@
 #include "ui/menudef.h"
 {
 
-	/*	MAIN MENU
-	Completely Reworked by KroniK - Fall 2015
-	*/
+    /* Menu Layout
+     *
+     * This layout file simply contains the background shader, music, and header/footer
+     * All additional items go in other files.
+     *
+     */
 
-	assetGlobalDef {
+    assetGlobalDef {
 
-		itemFocusSound "sound/misc/menu2.wav"	// sound for item getting focus (via keyboard or mouse )
+        itemFocusSound "sound/misc/menu2.wav"   // sound for item getting focus (via keyboard or mouse )
 
-		cursor "ui/assets/3_cursor3.tga"		// cursor
+        cursor "ui/assets/3_cursor3.tga"        // cursor
 
-		fadeClamp 1.0							// sets the fadeup alpha
-		fadeCycle 1								// how often fade happens in milliseconds
-		fadeAmount 0.1							// amount to adjust alpha per cycle
+        fadeClamp 1.0                           // sets the fadeup alpha
+        fadeCycle 1                             // how often fade happens in milliseconds
+        fadeAmount 0.1                          // amount to adjust alpha per cycle
 
-		shadowColor 0.1 0.1 0.1 0.0				// shadow color
-	}
+        shadowColor 0.1 0.1 0.1 0.0             // shadow color
+    }
 
 
-	menuDef {
-		name "main"
-		background "nightfall_bg" // script found elesewhere
-		fullScreen 1
-		visible 1
-		focusColor 1 1 1 1
-		onOpen { uiScript stopRefresh ; uiScript update "ui_GetName"; playlooped "music/kronik_menu.wav" }
-		onESC { close main; open quitcredit }
+    menuDef {
 
-		//	BLACK TOP BAR	//
-		itemDef {
-			name window
-			rect -5 -5 650 76
-			style 1
-			backcolor 0 0 0 .7
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
-		}
+        name "main"
+        background "nightfall_bg" // script found elesewhere
+        fullScreen 1
+        visible 1
+        focusColor 1 1 1 1
+        onOpen {
+            exec "set topmenu show"
+            uiScript stopRefresh
+            uiScript update "ui_GetName"
+            playlooped "music/kronik_menu.wav"
+        }
+        onESC {
+            close main
+            open quitcredit
+        }
 
-		//	BLACK BOTTOM BAR	//
 
-		itemDef {
-			name window
-			rect -5 430 650 56
-			style 1
-			backcolor .2 .2 .2 .6
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
-		}
+        //  TOP BAR //
 
-		itemDef {
-			name ut_logo_graphic
-			style WINDOW_STYLE_SHADER
-			background "ui/assets/urt_logo.tga"
-			rect 30 3 240 64
-			visible 1
-			decoration
-		}
+        itemDef {
+            name window
+            rect -5 -5 650 76
+            style 1
+            backcolor 0 0 0 .7
+            border 1
+            bordercolor .42 .42 .42 1
+            visible 1
+            decoration
+        }
 
-		//	COPYRIGHT TEXT	//
+        itemDef {
+          name ut_logo_graphic
+          style WINDOW_STYLE_SHADER
+          background "ui/assets/urt_logo.tga"
+          rect 30 3 240 64
+          visible 1
+          decoration
+        }
 
-		itemDef {
-			name copyright
-			text "Urban Terror (tm) (c) 2000-2014 Frozen Sand/0870760 B.C. Ltd,"
-			style 0
-			textscale .2
-			rect 0 415 640 40
-			//textalign 1
-			textaligny 32
-			textalignx 10
-			visible 1
-			decoration
-		}
+        //  BOTTOM BAR  //
 
-		itemDef {
-			name copyright
-			text "Quake 3 Arena (c) 2000-2014 id Software, inc. all rights reserved"
-			style 0
-			textscale .2
-			rect 0 430 640 40
-			//textalign 1
-			textaligny 32
-			textalignx 10
-			visible 1
-			decoration
-		}
+        itemDef {
+            name window
+            rect -5 430 650 56
+            style 1
+            backcolor .2 .2 .2 .6
+            border 1
+            bordercolor .42 .42 .42 1
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name version
-			text "Urban Terror"
-			style 0
-			textscale .2
-			rect 0 415 640 40
-			//textalign 1
-			textaligny 32
-			textalignx 539
-			visible 1
-			decoration
-		}
+        //  COPYRIGHT TEXT  //
 
-		//@Barbatos - 4.2.008 - added current modversion
-		itemDef {
-			name version2
-			rect 0 415 640 40
-			type ITEM_TYPE_TEXT
-			cvar "ui_modversion"
-			textalign 1
-			textaligny 32
-			textalignx 600
-			textscale .2
-			style 0
-			visible 1
-			decoration
-		}
+        itemDef {
+            name copyright
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            text "Urban Terror (tm) (c) 2000-2014 Frozen Sand/0870760 B.C. Ltd,"
+            style 0
+            textscale .2
+            rect 0 415 640 40
+            //textalign 1
+            textaligny 32
+            textalignx 10
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name uiskin
-			text "Nightfall by KroniK"
-			style 0
-			textscale .2
-			rect 0 440 640 40
-			textaligny 32
-			textalignx 539
-			visible 1
-			decoration
-		}
+        itemDef {
+            name copyright
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            text "Quake 3 Arena (c) 2000-2014 id Software, inc. all rights reserved"
+            style 0
+            textscale .2
+            rect 0 430 640 40
+            //textalign 1
+            textaligny 32
+            textalignx 10
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name auth_status
-			type ITEM_TYPE_TEXT
-			cvar "cl_auth_status"
-			style 0
-			textscale .23
-			rect 0 420 640 40
-			textaligny 5
-			textalignx 10
-			visible 1
-			decoration
-		}
+        itemDef {
+            name version
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            text "Urban Terror"
+            style 0
+            textscale .2
+            rect 0 415 640 40
+            //textalign 1
+            textaligny 32
+            textalignx 539
+            visible 1
+            decoration
+        }
 
-		//	BUTTONS	//
+        //@Barbatos - 4.2.008 - added current modversion
+        itemDef {
+            name version2
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            rect 0 415 640 40
+            type ITEM_TYPE_TEXT
+            cvar "ui_modversion"
+            textalign 1
+            textaligny 32
+            textalignx 600
+            textscale .2
+            style 0
+            visible 1
+            decoration
+        }
 
-		//@Barbatos: auth system - 4.2
-		itemDef {
-			name loginoption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			cvartest "cl_auth"
-			hideCvar { "10" }
-			type 1
-			style WINDOW_STYLE_SHADER
-			rect 520 15 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ; open authkey }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name uiskin
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            text "Nightfall by KroniK"
+            style 0
+            textscale .2
+            rect 0 440 640 40
+            textaligny 32
+            textalignx 539
+            visible 1
+            decoration
+        }
 
-		//@Barbatos: same for the logout but no need to open a menu
-		itemDef {
-			name loginoption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			cvartest "cl_auth"
-			showCvar { "10" }
-			type 1
-			style WINDOW_STYLE_SHADER
-			rect 520 15 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ; open disconnect }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name auth_status
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type ITEM_TYPE_TEXT
+            cvar "cl_auth_status"
+            style 0
+            textscale .23
+            rect 0 420 640 40
+            textaligny 5
+            textalignx 10
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name nicknameoption
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 100 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ; open nickname}
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        // AUTH ANNOUNCEMENTS //
 
-		itemDef {
-			name multiplayeroption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 180 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ; setcvar ui_ingameMaster 0 ; close main ; open joinserver }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name menubar_ann_title
+            type ITEM_TYPE_TEXT
+            cvartest "cl_auth_ann_title"
+            hideCvar { "none" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            cvar "cl_auth_ann_title"
+            textscale .24
+            textalignx 7
+            textaligny 16
+            rect 400 126 200 24
+            style 1
+            border 1
+            bordercolor .5 .5 .5 1
+            forecolor 1 1 1 1
+            backcolor 0 0 .55 .5
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name startserveroption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 220 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close main ;
-			open createserver }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name menubar_ann_box
+            type 0
+            cvartest "cl_auth_ann_title"
+            hideCvar { "none" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            rect 400 150 200 211
+            style 1
+            border 1
+            bordercolor .5 .5 .5 1
+            bordersize 1
+            backcolor 0 0 0 .8
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name setupoption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 260 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close main ;
-			open setup_menu ; open control_menu}
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name auth_ann_datetime
+            type ITEM_TYPE_TEXT
+            cvartest "cl_auth_ann_title"
+            hideCvar { "none" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            cvar "cl_auth_ann_datetime"
+            style 0
+            textscale .16
+            rect 509 160 200 211
+            textalign ITEM_ALIGN_RIGHT
+            textaligny 5
+            textalignx 5
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name demooption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 300 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close main ;
-			open demo }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+        itemDef {
+            name auth_ann_msg
+            wrapped
+            type ITEM_TYPE_TEXT
+            cvartest "cl_auth_ann_title"
+            hideCvar { "none" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            cvar "cl_auth_ann_msg"
+            style 0
+            textscale .22
+            rect 390 182 180 180
+            textaligny 5
+            textalignx 20
+            visible 1
+            decoration
+        }
 
-		itemDef {
-			name quitoption
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			type 1
-		  style WINDOW_STYLE_SHADER
-			rect 50 340 100 30
-			background "ui/assets/main_button.tga"
-			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close main; open quitcredit }
-			mouseEnter { setbackground "ui/assets/main_button_h.tga"}
-			mouseExit { setbackground "ui/assets/main_button.tga" }
-		}
+         //  MAIN MENU  //
 
-		//	TEXT FOR BUTTONS	//
+        //@Barbatos: auth system - 4.2
+        itemDef {
+            name loginoption
+            cvartest "topmenu"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            cvartest "cl_auth"
+            hideCvar { "10" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 520 15 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open authkey
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		//@Barbatos: auth system - 4.2
-		itemDef {
-			name loginoption
-			text "Log In"
-			cvartest "cl_auth"
-			hideCvar { "10"}
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 570 15 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        //@Barbatos: same for the logout but no need to open a menu
+        itemDef {
+            name loginoption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "cl_auth"
+            showCvar { "10" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 520 15 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open disconnect
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name loginoption
-			text "Log Out"
-			cvartest "cl_auth"
-			showCvar { "10"}
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 570 15 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name nicknameoption
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 100 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open nickname
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name nicknameoption
-			text "Set Nickname"
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 100 100 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name multiplayeroption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 180 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                setcvar ui_ingameMaster 0
+                open joinserver
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name multiplayeroption
-			text "Play Online"
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			textscale 0.3
-			textalign 1				// center
-			textalignx 0			// x alignment point for text
-			textaligny 21
-			style 1
-			rect 100 180 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .32 .79 .32 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name startserveroption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 220 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open createserver
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name startserveroption
-			text "Start Server"
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			textscale 0.3
-			textalign 1
-			textalignx 0 
-			textaligny 21
-			style 1
-			rect 100 220 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name setupoption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 260 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open setup_menu
+                open control_menu
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name setupoption
-			text "Setup"
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 100 260 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name demooption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 300 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open demo
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name demooption
-			text "Demos"
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 100 300 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .79 .79 1
-			visible 1
-			decoration
-		}
+        itemDef {
+            name quitoption
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 50 340 100 30
+            background "ui/assets/main_button.tga"
+            visible 1
+            action {
+                play "sound/misc/kcaction.wav"
+                open quitcredit
+            }
+            mouseEnter { setbackground "ui/assets/main_button_h.tga"}
+            mouseExit { setbackground "ui/assets/main_button.tga" }
+        }
 
-		itemDef {
-			name quitoption
-			text "QUIT!"
-			cvartest "name"
-			hideCvar { "New_UrT_Player", "Unnamed Player" }
-			textscale 0.3
-			textalign 1
-			textalignx 0
-			textaligny 21
-			style 1
-			rect 100 340 100 30
-			border 0
-			backcolor 0 0 0 0
-			forecolor .79 .32 .32 1
-			visible 1
-			decoration
-		}
-	}
+        //  TEXT FOR BUTTONS    //
+
+        //@Barbatos: auth system - 4.2
+        itemDef {
+            name loginoption
+            text "Log In"
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            cvartest "cl_auth"
+            hideCvar { "10"}
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 570 15 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name loginoption
+            text "Log Out"
+            cvartest "cl_auth"
+            showCvar { "10"}
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 570 15 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name nicknameoption
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            text "Set Nickname"
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 100 100 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name multiplayeroption
+            text "Play Online"
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1             // center
+            textalignx 0            // x alignment point for text
+            textaligny 21
+            style 1
+            rect 100 180 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .32 .79 .32 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name startserveroption
+            text "Start Server"
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 100 220 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name setupoption
+            text "Setup"
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 100 260 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name demooption
+            text "Demos"
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 100 300 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name quitoption
+            text "QUIT!"
+            cvartest "name"
+            hideCvar { "New_UrT_Player", "Unnamed Player" }
+            cvartest "topmenu"
+            hideCvar { "hide" }
+            textscale 0.3
+            textalign 1
+            textalignx 0
+            textaligny 21
+            style 1
+            rect 100 340 100 30
+            border 0
+            backcolor 0 0 0 0
+            forecolor .79 .32 .32 1
+            visible 1
+            decoration
+        }
+    }
 }
 
 

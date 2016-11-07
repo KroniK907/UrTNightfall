@@ -12,15 +12,17 @@
 		visible 0
 		fullscreen 0
 		rect 0 70 490 340
-		//	rect 186 0 443 426
-		focusColor 1 1 1 1
-		style 1
-		border 1
-		onOpen { setitemcolor fadebox backcolor 0 0 0 1 ;
-		//		fadeout fadebox ;
-		show grpdefault ;
-		hide grpfinish }
-		onEsc { close default_menu ; close setup_menu ; open main }
+		onOpen {
+			setitemcolor fadebox backcolor 0 0 0 1
+			//fadeout fadebox
+			show grpdefault
+			hide grpfinish
+		}
+		onEsc {
+			close default_menu
+			close setup_menu
+			setcvar topmenu show
+		}
 
 
 

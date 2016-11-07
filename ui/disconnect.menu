@@ -13,8 +13,14 @@
 		focusColor 1 1 1 1
 		style 1
 		popup
-		onopen { setfocus no }
-		onESC { close disconnect ; open main }
+		onOpen {
+			setcvar topmenu hide
+			setfocus no
+		}
+		onESC {
+			close disconnect
+			setcvar topmenu show
+		}
 
 		itemdef {
 			name background
@@ -80,8 +86,11 @@
 			forecolor 1 1 1 1
 			background "ui/assets/done-button.tga"
 			visible 1
-			action { play "sound/misc/kcaction.wav" ;
-			close disconnect ; open main }
+			action {
+				play "sound/misc/kcaction.wav"
+				close disconnect
+				setcvar topmenu show
+			}
 			mouseEnter { setbackground "ui/assets/done-button_h.tga"}
 			mouseExit { setbackground "ui/assets/done-button.tga" }
 		}
@@ -108,7 +117,12 @@
 			rect 120 128 50 26
 			background "ui/assets/done-button.tga"
 			visible 1
-			action { play "sound/misc/kcaction.wav" ; uiScript deleteAuthKey ; close disconnect ; open main }
+			action {
+				play "sound/misc/kcaction.wav"
+				uiScript deleteAuthKey
+				close disconnect
+				setcvar topmenu show
+			}
 			mouseEnter { setbackground "ui/assets/done-button_h.tga"}
 			mouseExit { setbackground "ui/assets/done-button.tga" }
 		}

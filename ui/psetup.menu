@@ -17,7 +17,7 @@
 		focusColor 1 1 1 1
 		style 1
 		border 1
-		onEsc   { close psetup_menu ; close setup_menu ; open main ; uiScript update "ui_SetName" }
+		onEsc   { close psetup_menu ; close setup_menu ; setcvar topmenu show ; uiScript update "ui_SetName" }
 		onOpen  { uiScript update "ui_GetName" ; setfocus window }
 		onClose { uiScript update "ui_SetName" }
 

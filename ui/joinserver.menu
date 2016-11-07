@@ -9,87 +9,17 @@
 	menuDef {
 		name "joinserver"
 		visible 0
-		fullscreen 1
+		fullscreen 0
 		rect 0 0 640 480
-		background "nightfall_bg"
 		focusColor 1 1 1 1
-		//outOfBoundsClick
 		style 1
-		border 1
-		onOpen { uiScript UpdateFilter; }
-		onEsc { uiScript closeJoin }
-
-		//	BLACK TOP BAR	//
-		itemDef {
-			name window
-			rect -5 -5 650 76
-			style 1
-			backcolor 0 0 0 .7
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
+		onOpen {
+			setcvar topmenu hide
+			uiScript UpdateFilter
 		}
-
-		//	BLACK BOTTOM BAR	//
-
-		itemDef {
-			name window
-			rect -5 430 650 56
-			style 1
-			backcolor .2 .2 .2 .6
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name ut_logo_graphic
-			style WINDOW_STYLE_SHADER
-			background "ui/assets/urt_logo.tga"
-			rect 30 3 240 64
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name topmenuwindow
-			rect 10 80 620 49
-			style WINDOW_STYLE_FILLED
-			border 1
-			bordercolor .5 .5 .5 1
-			backcolor 0 0 0 .8
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name topmenuwindow2
-			rect 12 107 618 22
-			style WINDOW_STYLE_FILLED
-			backcolor 0 0 .55 .25
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name midmenuwindow2
-			rect 12 342 618 50
-			style WINDOW_STYLE_FILLED
-			backcolor 0 0 0 .8
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name midmenuwindow
-			rect 10 342 620 50
-			style WINDOW_STYLE_FILLED
-			border 1
-			bordercolor .5 .5 .5 1
-			visible 1
-			decoration
+		onEsc {
+			uiScript closeJoin
+			setcvar topmenu show
 		}
 
 		itemDef {
@@ -959,7 +889,11 @@
 			visible 0
 			type ITEM_TYPE_BUTTON
 			mouseExit { hide back_on ; show back }
-			action { play "sound/misc/kcaction.wav" ; close joinserver ; open main }
+			action {
+				play "sound/misc/kcaction.wav"
+				close joinserver
+				setcvar topmenu show
+			}
 		}
 
 		itemDef {

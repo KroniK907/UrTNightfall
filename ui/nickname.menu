@@ -1,80 +1,89 @@
 #include "ui/menudef.h"
 
 {
-  /* @KroniK for Nightfall skin
-  * Nickname Popup 
-  */
+    /*
+     * Nickname Popup for Nightfall skin
+     */
 
-  menuDef {
-    name "nickname"
-    visible 0
-    fullscreen 0
-    rect 250 100 340 120
-    focusColor 1 1 1 1
-    style 1
-    popup
-    onopen { setfocus no }
-    onESC { close nickname ; open main }
+    menuDef {
+        name "nickname"
+        visible 0
+        fullscreen 0
+        rect 250 100 340 120
+        focusColor 1 1 1 1
+        style 1
+        popup
+        onopen { setfocus no }
+        onESC {
+            close nickname
+            setcvar topmenu show
+        }
 
-    itemDef {
-      name background
-      rect 0 0 340 120
-      background "ui/assets/nickback.tga"
-      style WINDOW_STYLE_SHADER
-      visible 1
-      decoration
+        itemDef {
+            name background
+            rect 0 0 340 120
+            background "ui/assets/nickback.tga"
+            style WINDOW_STYLE_SHADER
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name title
+            rect 8 8 324 10
+            text "Change Your Username Below"
+            textscale .3
+            textalign 1
+            textalignx 162
+            textaligny 13
+            backcolor 0 0 0 0
+            forecolor .79 .79 .79 1
+            visible 1
+            decoration
+        }
+
+        itemDef {
+            name inputbox
+            rect 15 30 310 30
+            style 1
+            type 4
+            maxchars 26
+            text ""
+            cvar "ui_Name"
+            textscale .4
+            textalign 1
+            textalignx 155
+            textaligny 20
+            backcolor 0 0 0 1
+            forecolor .35 .55 .69 1
+            border 1
+            bordersize 1
+            bordercolor .79 .79 .79 1
+            visible 1
+        }
+
+        itemDef {
+            name done
+            type 1
+            style WINDOW_STYLE_SHADER
+            rect 120 75 100 30
+            background "ui/assets/done-button.tga"
+            visible 1
+            text "Done"
+            textalign 1
+            textalignx 50
+            textaligny 20
+            textscale .3
+            forecolor .79 .79 .79 1
+            action {
+                play "sound/misc/kcaction.wav"
+                uiScript update "ui_SetName"
+                close nickname
+                setcvar topmenu show
+                setcvar com_cameramode "0"
+            }
+            mouseEnter { setbackground "ui/assets/done-button_h.tga"}
+            mouseExit { setbackground "ui/assets/done-button.tga" }
+        }
     }
-
-    itemDef {
-      name title
-      rect 8 8 324 10
-      text "Change Your Username Below"
-      textscale .3
-      textalign 1
-      textalignx 162
-      textaligny 13
-      backcolor 0 0 0 0
-      forecolor .79 .79 .79 1
-      visible 1
-      decoration
-    }
-
-    itemDef {
-      name inputbox
-      rect 15 30 310 30
-      style 1
-      type 4
-      maxchars 26
-      text ""
-      cvar "ui_Name"
-      textscale .4
-      textalign 1
-      textalignx 155
-      textaligny 20
-      backcolor 0 0 0 1
-      forecolor .35 .55 .69 1
-      border 1
-      bordersize 1
-      bordercolor .79 .79 .79 1
-      visible 1
-    }
-
-    itemDef {
-      name done
-      type 1
-      style WINDOW_STYLE_SHADER
-      rect 120 75 100 30
-      background "ui/assets/done-button.tga"
-      visible 1
-      text "Done"
-      textalign 1
-      textalignx 50
-      textaligny 20
-      textscale .3
-      forecolor .79 .79 .79 1
-      action { play "sound/misc/kcaction.wav" ; uiScript update "ui_SetName" ; close nickname ; open main ; setcvar com_cameramode "0";}
-      mouseEnter { setbackground "ui/assets/done-button_h.tga"}
-      mouseExit { setbackground "ui/assets/done-button.tga" }
-    }
-  }
 }

@@ -15,8 +15,18 @@
 		focusColor 1 1 1 1
 		style 1
 		border 1
-		onOpen { show graphics ; hide sound ; hide network ; hide bumpy}
-		onEsc { close system_menu ; close setup_menu ; open main }
+		onOpen {
+			setcvar topmenu hide
+			show graphics
+			hide sound
+			hide network
+			hide bumpy
+		}
+		onEsc {
+			close system_menu
+			close setup_menu
+			setcvar topmenu show
+		}
 
 		itemDef {
 			name window

@@ -9,47 +9,15 @@
 	menuDef {
 		name "demo"
 		visible 0
-		fullscreen 1
+		fullscreen 0
 		rect 0 0 640 480
-		background "nightfall_bg"
-		focusColor 1 1 1 1
-		style 1
-		border 1
-		onEsc { close demo ; open main }
-		onOpen { uiScript LoadDemos }
-
-		//	BLACK TOP BAR	//
-		itemDef {
-			name window
-			rect -5 -5 650 76
-			style 1
-			backcolor 0 0 0 .7
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
+		onEsc {
+			close demo
+			setcvar topmenu show
 		}
-
-		//	BLACK BOTTOM BAR	//
-
-		itemDef {
-			name window
-			rect -5 430 650 56
-			style 1
-			backcolor .2 .2 .2 .6
-			border 1
-			bordercolor .42 .42 .42 1
-			visible 1
-			decoration
-		}
-
-		itemDef {
-			name ut_logo_graphic
-			style WINDOW_STYLE_SHADER
-			background "ui/assets/urt_logo.tga"
-			rect 30 3 240 64
-			visible 1
-			decoration
+		onOpen {
+			setcvar topmenu hide
+			uiScript LoadDemos
 		}
 
 		itemDef {
@@ -124,7 +92,11 @@
 			visible 0
 			type ITEM_TYPE_BUTTON
 			mouseExit { hide back_on ; show back }
-			action { play "sound/misc/kcaction.wav" ; close demo ; open main }
+			action {
+				play "sound/misc/kcaction.wav"
+				close demo
+				setcvar topmenu show
+			}
 		}
 
 		itemDef {
